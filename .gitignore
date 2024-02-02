@@ -5,3 +5,5 @@
 /phpdoc.phar
 /.idea/
 /.php-cs-fixer.cache
+/bin/console
+/.phpcs-cache

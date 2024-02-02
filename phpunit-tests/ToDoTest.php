@@ -9,8 +9,6 @@ namespace Tests;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
 
-include(dirname(__DIR__) . '/vendor/autoload.php');
-
 final class ToDoTest extends TestCase
 {
     /**
