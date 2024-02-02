@@ -2,7 +2,16 @@
   "require": {
     "php": ">=8.2",
     "ergebnis/composer-normalize": "^2.41",
-    "symfony/flex": "^2.4"
+    "symfony/flex": "^2.4",
+    "symfony/routing": "^7.0",
+    "symfony/framework-bundle": "^7.0",
+    "symfony/twig-bundle": "^7.0",
+    "twig/extra-bundle": "^2.12|^3.0",
+    "twig/twig": "^2.12|^3.0",
+    "symfony/security-bundle": "^7.0",
+    "symfony/uid": "^7.0",
+    "symfony/runtime": "^7.0",
+    "symfony/yaml": "^7.0"
   },
   "require-dev": {
     "ergebnis/phpstan-rules": "^2.1",
@@ -37,7 +46,14 @@
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "ergebnis/composer-normalize": true,
       "phpstan/extension-installer": true,
-      "symfony/flex": true
+      "symfony/flex": true,
+      "symfony/runtime": true
+    }
+  },
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
     }
   }
 }

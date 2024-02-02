@@ -42,10 +42,10 @@ phpstan:
 	./vendor/bin/phpstan
 
 psalm:
-	./vendor/bin/psalm
+	./vendor/bin/psalm --config=psalm.xml
 
 phan:
-	./vendor/bin/phan  --allow-polyfill-parser -m verbose
+	PHAN_ALLOW_XDEBUG=1 ./vendor/bin/phan --allow-polyfill-parser -m verbose
 
 docker-php-test: docker-start
 	docker-compose exec webserver make php-test
@@ -99,4 +99,6 @@ docker-apt:
 
 apt:
 	apt update
+	apt install unzip
 	apt install wget
+
