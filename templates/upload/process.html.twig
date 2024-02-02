@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Upload done.</h1>
+    <p>processing file</p>
+    <div class="progress" data-process-start="{{ url.process-start }}" data-process-status="{{ url.process-start }}">
+        <div class="text">
+        </div>
+        <div class="graphic">
+            <div class="meter">
+            </div>
+        </div>
+    </div>
+    <div>
+        <a class="btn" href="{{ url.upload }}">go back</a>
+    </div>
+{% endblock %}

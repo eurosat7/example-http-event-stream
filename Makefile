@@ -3,7 +3,7 @@ default: docker-make-init
 docker-make-init: docker-start
 	docker-compose exec webserver make init
 
-init: apt get-phpcpd get-phpdocumentor composer-update qa phpunit php-test
+init: apt get-phpcpd get-phpdocumentor composer-update qa phpunit php-test encore
 
 docker-start:
 	docker-compose up -d
@@ -18,7 +18,6 @@ docker-stop:
 
 docker-make-qa: docker-start
 	docker-compose exec webserver make qa
-
 qa: rector phpcpd phpmd phpstan psalm phan
 
 get-phpcpd:
@@ -49,28 +48,21 @@ phan:
 
 docker-php-test: docker-start
 	docker-compose exec webserver make php-test
-
 php-test:
 	php test/test.php
 
 docker-make-composer-update: docker-start
 	docker-compose exec webserver make composer
-
 composer-update:
 	composer update
 
-normalize:
-	composer normalize
-
 docker-phpinsights: docker-start
 	docker-compose exec webserver make phpinsights
-
 phpinsights:
 	./vendor/bin/phpinsights -cphpinsights.php -vvv
 
 docker-pdepend: docker-start
 	docker-compose exec webserver make pdepend
-
 pdepend:
 	./vendor/bin/pdepend \
 		--dependency-xml=pdepend/dependency.xml \
@@ -84,21 +76,30 @@ pdepend:
 
 docker-phpdoc: docker-start
 	docker-compose exec webserver make phpdoc
-
 phpdoc:
 	./phpdoc.phar --target=documentation --directory=src --cache-folder=documentation/cache
 
 docker-phpunit: docker-start
 	docker-compose exec webserver make phpunit
-
 phpunit:
 	./vendor/bin/phpunit phpunit-tests
 
 docker-apt:
 	docker-compose exec webserver make apt
-
 apt:
 	apt update
 	apt install unzip
 	apt install wget
+	curl -fsSL https://deb.nodesource.com/setup_21.x | apt install -y nodejs npm
+	npm install sass-loader@^14.0.0 sass --save-dev
 
+docker-encore:
+	docker-compose exec webserver make encore
+encore:
+	./node_modules/.bin/encore dev
+
+encore-watch:
+	./node_modules/.bin/encore dev --watch
+
+normalize:
+	composer normalize

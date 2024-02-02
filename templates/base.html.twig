@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{{ title ?? '' }}{% endblock %} - example http event stream</title>
+
+    {{ encore_entry_link_tags('index') }}
     {% block stylesheets %}{% endblock %}
     {% block javascripts %}{% endblock %}
+    {{ encore_entry_script_tags('index') }}
 </head>
 <body>
 {% block body %}{% endblock %}
+{% block latejavascripts %}{% endblock %}
 </body>
 </html>

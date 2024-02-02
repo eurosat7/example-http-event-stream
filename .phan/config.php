@@ -43,7 +43,8 @@ return [
         'vendor/'
     ],
     'suppress_issue_types' => [
-        'PhanCompatibleTrailingCommaParameterList'
+        'PhanCompatibleTrailingCommaParameterList',
+        'PhanSyntaxError' // false positives because of 8.3 syntax
     ],
 
     // A list of plugin files to execute.
