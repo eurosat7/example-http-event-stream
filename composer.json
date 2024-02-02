@@ -1,6 +1,6 @@
 {
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.3",
     "ergebnis/composer-normalize": "^2.41",
     "symfony/flex": "^2.4",
     "symfony/routing": "^7.0",

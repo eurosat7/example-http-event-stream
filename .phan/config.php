@@ -14,7 +14,7 @@ return [
     // If this is set to `null`,
     // then Phan assumes the PHP version which is closest to the minor version
     // of the php executable used to execute Phan.
-    'target_php_version' => '8.2',
+    'target_php_version' => '8.3',
 
     // A list of directories that should be parsed for class and
     // method information. After excluding the directories
@@ -41,6 +41,9 @@ return [
     //       to `exclude_analysis_directory_list`.
     'exclude_analysis_directory_list' => [
         'vendor/'
+    ],
+    'suppress_issue_types' => [
+        'PhanCompatibleTrailingCommaParameterList'
     ],
 
     // A list of plugin files to execute.

@@ -3,7 +3,7 @@ version: '3.7'
 
 services:
   webserver:
-    image: phpstorm/php-apache:8.2-xdebug3.2
+    image: phpstorm/php-apache:8.3
     restart: always
     ports:
       - "8189:80"
@@ -12,3 +12,9 @@ services:
       - ./dist/php.ini:/usr/local/etc/php/conf.d/local.ini
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
+
+  memcached:
+    image: memcached:latest
+    restart: always
+    ports:
+      - "12222:11211"

@@ -12,13 +12,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/src',
     ]);
-    $rectorConfig->phpVersion(PhpVersion::PHP_82);
+    $rectorConfig->phpVersion(PhpVersion::PHP_82); // @todo PHP_83 not yet supported
     $rectorConfig->rule(
         InlineConstructorDefaultToPropertyRector::class
     );
 
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_82,
+        LevelSetList::UP_TO_PHP_82, // @todo UP_TO_PHP_83 not yet supported
         SetList::DEAD_CODE,
         SetList::CODE_QUALITY,
         SetList::EARLY_RETURN,
