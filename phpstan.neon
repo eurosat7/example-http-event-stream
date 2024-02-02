@@ -1,0 +1,9 @@
+parameters:
+  level: 9
+  paths:
+    - src
+  strictRules:
+    allRules: true
+  ergebnis:
+    final:
+      enabled: false

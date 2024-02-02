@@ -1,0 +1,7 @@
+/vendor/
+/documentation/
+/pdepend/
+/phpcpd.phar
+/phpdoc.phar
+/.idea/
+/.php-cs-fixer.cache

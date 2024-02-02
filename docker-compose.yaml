@@ -1,0 +1,14 @@
+# Use root/example as user/password credentials
+version: '3.7'
+
+services:
+  webserver:
+    image: phpstorm/php-apache:8.2-xdebug3.2
+    restart: always
+    ports:
+      - "8189:80"
+    volumes:
+      - ./:/var/www/html
+      - ./dist/php.ini:/usr/local/etc/php/conf.d/local.ini
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
