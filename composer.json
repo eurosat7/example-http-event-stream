@@ -1,7 +1,8 @@
 {
   "require": {
     "php": ">=8.2",
-    "ergebnis/composer-normalize": "^2.41"
+    "ergebnis/composer-normalize": "^2.41",
+    "symfony/flex": "^2.4"
   },
   "require-dev": {
     "ergebnis/phpstan-rules": "^2.1",
@@ -34,7 +35,8 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "ergebnis/composer-normalize": true,
-      "phpstan/extension-installer": true
+      "phpstan/extension-installer": true,
+      "symfony/flex": true
     }
   }
 }
