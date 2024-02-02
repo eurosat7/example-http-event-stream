@@ -3,7 +3,7 @@ default: docker-make-init
 docker-make-init: docker-start
 	docker-compose exec webserver make init
 
-init: get-phpcpd get-phpdocumentor composer-update docker-start qa phpunit php-test
+init: apt get-phpcpd get-phpdocumentor composer-update qa phpunit php-test
 
 docker-start:
 	docker-compose up -d
@@ -93,3 +93,10 @@ docker-phpunit: docker-start
 
 phpunit:
 	./vendor/bin/phpunit phpunit-tests
+
+docker-apt:
+	docker-compose exec webserver make apt
+
+apt:
+	apt update
+	apt install wget
