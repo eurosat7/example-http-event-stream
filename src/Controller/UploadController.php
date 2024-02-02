@@ -46,7 +46,7 @@ final class UploadController extends AbstractController
     /**
      * @throws LogicException
      */
-    #[Route('/upload/process-background/{{ uuid }}')]
+    #[Route('/upload/process-background/{uuid}')]
     public function processBackgroundAction(string $uuid, SessionService $sessionService): JsonResponse
     {
         $act = 0;
@@ -66,7 +66,7 @@ final class UploadController extends AbstractController
     /**
      * x-throws LogicException
      */
-    #[Route('/upload/status/{{ uuid }}')]
+    #[Route('/upload/status/{uuid}')]
     public function statusAction(string $uuid, SessionService $sessionService): JsonResponse
     {
         return $this->json(
