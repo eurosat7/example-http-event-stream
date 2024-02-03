@@ -70,4 +70,8 @@ Encore
     .autoProvidejQuery()
 ;
 
-module.exports = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
+
+// custom modding will be here
+
+module.exports = config;
