@@ -7,6 +7,7 @@ init: apt get-phpcpd get-phpdocumentor composer-update qa phpunit php-test encor
 
 docker-start:
 	docker-compose up -d
+	make docker-fix-document-root
 	@echo "you can now open the browser at: http://localhost:8189/"
 	@echo "to shutdown docker run: make stop"
 
@@ -51,8 +52,8 @@ docker-php-test: docker-start
 php-test:
 	php test/test.php
 
-docker-make-composer-update: docker-start
-	docker-compose exec webserver make composer
+docker-make-composer-update:
+	docker-compose exec webserver make composer-update
 composer-update:
 	composer update
 
@@ -103,3 +104,14 @@ encore-watch:
 
 normalize:
 	composer normalize
+
+docker-fix-document-root:
+	docker-compose exec webserver make fix-document-root
+fix-document-root:
+	-unlink  /etc/apache2/sites-enabled/000-default.conf
+	ln -s /var/www/html/dist/localhost.conf /etc/apache2/sites-enabled/000-default.conf
+	-a2enmod rewrite
+	service apache2 reload
+
+docker-recreate-instances:
+	docker-compose up -d --force-recreate --build
