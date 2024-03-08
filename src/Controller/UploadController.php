@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Eurosat7\ExampleHttpEventStream\Controller;
+namespace App\Controller;
 
-use Eurosat7\ExampleHttpEventStream\Service\SessionService;
+use App\Service\SessionService;
 use InvalidArgumentException;
 use LogicException;
 use Random\RandomException;
@@ -21,7 +21,8 @@ use Symfony\Component\Uid\UuidV6;
  */
 final class UploadController extends AbstractController
 {
-    private const string PROCESS = 'UploadController-process';
+    // phpdoc can't understand constant type declaration yet: private const string
+    private const PROCESS = 'UploadController-process';
 
     #[Route('/upload', name: 'upload-index')]
     public function indexAction(): Response
@@ -38,13 +39,13 @@ final class UploadController extends AbstractController
         );
     }
 
-    #[Route('/upload/process', name: 'upload-process', methods: 'POST')]
+    #[Route('/upload/process', name: 'upload-process', methods: ['POST'])]
     public function processAction(Request $request): Response
     {
         /** @var ?UploadedFile $fileInfo */
         $fileInfo = $request->files->get('upload');
 
-        if ($fileInfo === null) {
+        if (!$fileInfo instanceof UploadedFile) {
             try {
                 return new Response('no file was uploaded, or file not found', 500);
             } catch (InvalidArgumentException) {
@@ -53,6 +54,7 @@ final class UploadController extends AbstractController
         }
 
         $uuid = new UuidV6();
+
         return $this->render(
             'upload/process.html.twig',
             [
@@ -72,16 +74,18 @@ final class UploadController extends AbstractController
     public function processStartAction(string $uuid, SessionService $sessionService): JsonResponse
     {
         $act = 0;
-        $max = 100;
-        $sessionService->setSessionValue([self::PROCESS, $uuid, 'max'], $max);
+        $max = 1000;
+        $sessionService->updateSessionValue([self::PROCESS, $uuid, 'max'], $max);
         while ($act < $max) {
             try {
-                $act += random_int(1, 4);
+                $act += random_int(1, 4) ;
             } catch (RandomException) {
-                $act += 1;
+                ++$act;
             }
-            $sessionService->setSessionValue([self::PROCESS, $uuid, 'act'], $act);
+            usleep(250_000);
+            $sessionService->updateSessionValue([self::PROCESS, $uuid, 'act'], min($act, $max));
         }
+
         return $this->json(true);
     }
 
@@ -93,11 +97,10 @@ final class UploadController extends AbstractController
     {
         return $this->json(
             [
-                'error' => ($sessionService->getSessionValue([self::PROCESS, $uuid, 'act']) !== null) ? 1 : 0,
+                'error' => $sessionService->getSessionValue([self::PROCESS, $uuid, 'act']) !== null ? 1 : 0,
                 'act' => $sessionService->getSessionValue([self::PROCESS, $uuid, 'act']) ?? 0,
                 'max' => $sessionService->getSessionValue([self::PROCESS, $uuid, 'max']) ?? 0,
             ]
         );
     }
-
 }

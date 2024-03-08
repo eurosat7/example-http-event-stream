@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eurosat7\ExampleHttpEventStream;
+namespace App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

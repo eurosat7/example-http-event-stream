@@ -52,6 +52,7 @@ return [
 
     'exclude' => [
         'phpinsights.php',
+        'var',
         //  'path/to/directory-or-file'
     ],
 
@@ -68,6 +69,9 @@ return [
         SlevomatCodingStandard\Sniffs\Operators\SpreadOperatorSpacingSniff::class,
         PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer::class,
         PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer::class,
+        PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff::class, // false positive on typed constants
+        SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff::class, // phpstan is alreay helping
+        SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff::class, // phpstan is alreay helping
         //  ExampleInsight::class,
     ],
 

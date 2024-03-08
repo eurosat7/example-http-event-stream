@@ -57,6 +57,12 @@ docker-make-composer-update:
 composer-update:
 	composer update
 
+docker-composer-dump-autoload:
+	docker-compose exec webserver make composer-dump-autoload
+composer-dump-autoload:
+	composer dump-autoload
+
+
 docker-phpinsights: docker-start
 	docker-compose exec webserver make phpinsights
 phpinsights:
@@ -65,15 +71,18 @@ phpinsights:
 docker-pdepend: docker-start
 	docker-compose exec webserver make pdepend
 pdepend:
+	-mkdir var/cache/pdepend
+	-mkdir pdepend
 	./vendor/bin/pdepend \
+        --configuration=/var/www/html/pdepend.xml \
 		--dependency-xml=pdepend/dependency.xml \
 		--jdepend-chart=pdepend/jdepend.svg \
 		--jdepend-xml=pdepend/jdepend.xml \
         --overview-pyramid=pdepend/pyramid.svg \
 		--summary-xml=pdepend/summary.xml \
+ 		--coverage-report=pdepend/coverage.report \
 		--debug \
 		src
-#		--coverage-report=pdepend/coverage.report \
 
 docker-phpdoc: docker-start
 	docker-compose exec webserver make phpdoc

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eurosat7\ExampleHttpEventStream\Service;
+namespace App\Service;
 
 use LogicException;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
@@ -13,30 +13,31 @@ readonly class SessionService
 {
     public function __construct(
         private RequestStack $requestStack,
-    )
-    {
+    ) {
     }
 
     /**
      * @param array<int, string> $keypath
+     *
      * x-throws LogicException
      */
     public function getSessionValue(array $keypath): mixed
     {
         try {
             $key = implode('-', $keypath);
+
             return $this->getSession()->get($key) ?? null;
         } catch (LogicException) {
-            // noop
+            throw new LogicException('could not read from session');
         }
-        throw new LogicException('could not read from session');
     }
 
     /**
      * @param array<int, string> $keypath
+     *
      * @throws LogicException
      */
-    public function setSessionValue(array $keypath, mixed $value): void
+    public function updateSessionValue(array $keypath, mixed $value): void
     {
         try {
             $key = implode('-', $keypath);
@@ -54,8 +55,7 @@ readonly class SessionService
         try {
             return $this->requestStack->getSession();
         } catch (SessionNotFoundException) {
-            // noop
+            throw new LogicException('no valid session found');
         }
-        throw new LogicException('no valid session found');
     }
 }
